@@ -102,4 +102,25 @@ app.delete("/deleteData",async (req,res)=>{
     }
 })
 
+// Edit data
+
+app.put("/updateData",async(req,res)=>{
+    const{rollNo,name,age,department}=req.body;
+    try{
+        const updatedata=await Student.findOneAndUpdate(
+            {rollNo},
+            {name,age,department},
+            {new:true}
+        )
+        if(updatedata){
+            res.send("Student updated");
+        }
+        else{
+            res.send("student not found");
+        }
+    }catch(error){
+            res.send("Error in edit data");
+    }
+})
+
 app.listen(3000);
